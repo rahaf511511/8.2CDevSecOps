@@ -1,50 +1,49 @@
 pipeline {
-    agent any
+  agent any
 
-    stages {
+  stages {
 
-        stage('Checkout') {
-            steps {
-                echo 'Checking out code...'
-                checkout scm
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Building project...'
-            }
-        }
-
-        stage('Unit Tests') {
-            steps {
-                sh 'npm test'
-            }
-        }
-
-        stage('Security Scan (Snyk)') {
-            steps {
-                sh 'snyk test || true'
-            }
-        }
-
-        stage('Code Analysis') {
-            steps {
-                echo 'SonarCloud placeholder'
-            }
-        }
-
-        stage('Deploy to Staging') {
-            steps {
-                echo 'Deploying to staging...'
-            }
-        }
-
+    stage('Build') {
+      steps {
+        sh 'npm install'
+      }
     }
+
+    stage('Unit Tests') {
+      steps {
+        sh 'npm test'
+      }
+    }
+
+    stage('Code Analysis') {
+      steps {
+        echo 'Running Code Analysis'
+      }
+    }
+
+    stage('Security Scan (Snyk)') {
+      steps {
+        sh 'snyk test || true'
+      }
+    }
+
+    stage('Deploy to Staging') {
+      steps {
+        echo 'Deploying to staging...'
+      }
+    }
+
+    stage('Integration Tests') {
+      steps {
+        echo 'Running integration tests...'
+      }
+    }
+
+    stage('Deploy to Production') {
+      steps {
+        echo 'Deploying to production...'
+      }
+    }
+
+  }
 }
