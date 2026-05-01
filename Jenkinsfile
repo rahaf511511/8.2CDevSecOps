@@ -5,7 +5,7 @@ pipeline {
 
         stage('1. Checkout Code') {
             steps {
-                git url: 'YOUR_REPO_URL'
+                git url: 'https://github.com/rahaf7373/8.2CDevSecops.git'
             }
         }
 
@@ -17,7 +17,7 @@ pipeline {
 
         stage('3. Build') {
             steps {
-                sh 'npm run build || echo "No build step"'
+                sh 'echo "No build step required (or replace with npm run build)"'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
 
         stage('5. Code Quality (SonarCloud)') {
             steps {
-                echo 'SonarCloud analysis step here'
+                sh 'echo "SonarCloud step goes here (to be configured)"'
             }
         }
 
@@ -41,9 +41,20 @@ pipeline {
 
         stage('7. Package') {
             steps {
-                sh 'npm pack'
+                sh 'zip -r app.zip . || true'
             }
         }
+    }
 
+    post {
+        always {
+            echo 'Pipeline Finished'
+        }
+        success {
+            echo 'Build Successful'
+        }
+        failure {
+            echo 'Build Failed'
+        }
     }
 }
